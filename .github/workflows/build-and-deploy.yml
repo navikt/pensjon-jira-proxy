@@ -9,17 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      packages: write
       id-token: write
       actions: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Build and push image and SBOM to OCI registry
+      - name: Build and push Docker image
         uses: nais/docker-build-push@v0
-        id: docker-build-push
+        id: docker-push
         with:
           team: pesys-felles
+          salsa: true
 
       - name: Deploy to prod-fss
         uses: nais/deploy/actions/deploy@master

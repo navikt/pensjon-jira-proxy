@@ -17,7 +17,7 @@ spec:
   image: {{image}}
   port: 8080
   ingresses:
-    - https://jira-proxy.nais.adeo.no
+    - https://jira-proxy.intern.nav.no
   replicas:
     max: 4
     min: 2

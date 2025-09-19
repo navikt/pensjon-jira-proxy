@@ -13,14 +13,11 @@ class JiraConfiguration {
     @Bean
     fun jiraRestTemplate(
         @Value("\${jira.url}") jiraUrl: String,
-        @Value("\${jira.username}") jiraUser: String,
-        @Value("\${jira.password}") jiraPassword: String
+        @Value("\${jira_access_token}") jiraAccessToken: String,
     ) = RestTemplate().apply {
-        // Set up basic authentication
-        val auth = "$jiraUser:$jiraPassword"
-        val encodedAuth = java.util.Base64.getEncoder().encodeToString(auth.toByteArray())
+        // Set up authentication
         this.interceptors.add { request, body, execution ->
-            request.headers.add("Authorization", "Basic $encodedAuth")
+            request.headers.add("Authorization", "Bearer $jiraAccessToken")
             execution.execute(request, body)
         }
         // set baseurl

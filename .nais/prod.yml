@@ -1,0 +1,51 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: jira-proxy
+  namespace: pesys-felles
+  labels:
+    team: pesys-felles
+spec:
+  accessPolicy:
+    inbound:
+      rules:
+        - application: dora-metrics-job
+          cluster: prod-gcp
+    outbound:
+      rules:
+        - host: jira.adeo.no
+          port: 443
+  image: {{image}}
+  port: 8080
+  ingresses:
+    - https://jira-proxy.nais.adeo.no
+  replicas:
+    max: 4
+    min: 2
+  resources:
+    requests:
+      cpu: 200m
+      memory: 128Mi
+  liveness:
+    failureThreshold: 10
+    initialDelay: 20
+    path: /isalive
+    periodSeconds: 5
+    port: 8080
+    timeout: 1
+  azure:
+    application:
+      enabled: true
+  envFrom:
+    - secret: jira-proxy
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
+      destinations:
+        - id: "grafana-lgtm"
+        - id: "elastic-apm"
+    logging:
+      destinations:
+        - id: elastic
+        - id: loki

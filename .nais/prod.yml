@@ -13,7 +13,9 @@ spec:
           cluster: prod-gcp
     outbound:
       rules:
+       external:
         - host: jira.adeo.no
+        - port: 443
   image: {{image}}
   port: 8080
   ingresses:

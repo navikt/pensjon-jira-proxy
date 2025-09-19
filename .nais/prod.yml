@@ -12,10 +12,9 @@ spec:
         - application: dora-metrics-job
           cluster: prod-gcp
     outbound:
-      rules:
-       external:
+      external:
         - host: jira.adeo.no
-        - port: 443
+          port: 443
   image: {{image}}
   port: 8080
   ingresses:

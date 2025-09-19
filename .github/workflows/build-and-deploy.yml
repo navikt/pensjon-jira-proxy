@@ -21,10 +21,10 @@ jobs:
         with:
           team: pesys-felles
 
-      - name: Deploy to Nais
-        uses: nais/deploy/actions/deploy@v2
+      - name: Deploy to prod-fss
+        uses: nais/deploy/actions/deploy@master
         env:
+          IMAGE: ${{ steps.docker-push.outputs.image }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-fss
           RESOURCE: .nais/prod.yml
-          WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
-          TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}

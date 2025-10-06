@@ -27,6 +27,7 @@ class TexasAuthenticationFilter(
 
         val isTokenValid = try {
             val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
+            logger.info("Authorization header: $authHeader")
             val token = authHeader?.substringAfter("Bearer ") ?: ""
             texasClient.validateToken(token)
         } catch (e: Exception) {

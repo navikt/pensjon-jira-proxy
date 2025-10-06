@@ -27,17 +27,19 @@ class TexasAuthenticationFilter(
 
         val isTokenValid = try {
             val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
-            if(authHeader == null) {
-                logger.warn("Missing Authorization header")
+            if (authHeader == null) {
+                false
+            } else {
+                val token = authHeader.substringAfter("Bearer ") // Extract token from "Bearer <token
+                texasClient.validateToken(token)
             }
-            val token = authHeader?.substringAfter("Bearer ") ?: ""
-            texasClient.validateToken(token)
         } catch (e: Exception) {
             logger.error(e.message)
             false
         }
 
         if (isTokenValid) {
+            logger.info("Token validated")
             val authenticationToken: Authentication =
                 UsernamePasswordAuthenticationToken(null, null, emptyList())
             SecurityContextHolder.getContext().authentication = authenticationToken

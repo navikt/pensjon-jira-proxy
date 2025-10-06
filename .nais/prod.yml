@@ -15,6 +15,10 @@ spec:
       external:
         - host: jira.adeo.no
   image: {{image}}
+  port: 8080
+  ingresses:
+    - https://jira-proxy.intern.nav.no
+    - https://jira-proxy.prod-fss-pub.nais.io
   replicas:
     max: 4
     min: 2

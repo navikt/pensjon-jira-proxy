@@ -38,11 +38,9 @@ class TexasAuthenticationFilter(
             val authenticationToken: Authentication =
                 UsernamePasswordAuthenticationToken(null, null, emptyList())
             SecurityContextHolder.getContext().authentication = authenticationToken
-            filterChain.doFilter(request, response)
-        } else {
-            response.status = HttpServletResponse.SC_UNAUTHORIZED
-            response.writer.write("Unauthorized")
         }
+
+        filterChain.doFilter(request, response)
     }
 }
 

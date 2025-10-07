@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory.getLogger
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
@@ -40,8 +41,9 @@ class TexasAuthenticationFilter(
 
         if (isTokenValid) {
             logger.info("Token validated")
+            val authorities = listOf(SimpleGrantedAuthority("ROLE_MACHINE"))
             val authenticationToken: Authentication =
-                UsernamePasswordAuthenticationToken("texasAzureClientCredentials", null, emptyList())
+                UsernamePasswordAuthenticationToken("texasAzureClientCredentials", null, authorities)
             SecurityContextHolder.getContext().authentication = authenticationToken
         }
 

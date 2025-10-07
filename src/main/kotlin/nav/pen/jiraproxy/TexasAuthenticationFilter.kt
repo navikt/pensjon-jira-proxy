@@ -41,7 +41,7 @@ class TexasAuthenticationFilter(
         if (isTokenValid) {
             logger.info("Token validated")
             val authenticationToken: Authentication =
-                UsernamePasswordAuthenticationToken(null, null, emptyList())
+                UsernamePasswordAuthenticationToken("texasAzureClientCredentials", null, emptyList())
             SecurityContextHolder.getContext().authentication = authenticationToken
         }
 

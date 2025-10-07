@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 class SecurityConfig(
     private val TexasAuthenticationFilter: TexasAuthenticationFilter,
 ) {

@@ -12,6 +12,7 @@ spec:
         - application: dora-metrics-job
           cluster: prod-gcp
         - application: jira-issue-creator
+          namespace: pesys-felles
           cluster: prod-gcp
     outbound:
       external:

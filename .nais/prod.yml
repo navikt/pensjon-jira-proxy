@@ -38,6 +38,10 @@ spec:
   azure:
     application:
       enabled: true
+      preAuthorizedApplications:
+        - application: jira-issue-creator
+          namespace: pesys-felles
+          cluster: prod-gcp
   envFrom:
     - secret: jira-proxy
   observability:

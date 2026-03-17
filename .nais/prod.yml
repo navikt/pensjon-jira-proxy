@@ -11,6 +11,8 @@ spec:
       rules:
         - application: dora-metrics-job
           cluster: prod-gcp
+        - application: jira-issue-creator
+          cluster: prod-gcp
     outbound:
       external:
         - host: jira.adeo.no

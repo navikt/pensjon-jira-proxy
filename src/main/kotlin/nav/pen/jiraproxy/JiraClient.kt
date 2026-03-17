@@ -29,7 +29,7 @@ class JiraClient(
     }
 }
 
-data class CreateIssueRequest(val title: String)
+data class CreateIssueRequest(val fields: Map<String, Any>)
 data class CreateIssueResponse(val id: String, val key: String, val self: String)
 data class IssueDetails(val id: String, val key: String, val fields: Map<String, Any>)
 data class CommentRequest(val body: String)

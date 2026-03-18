@@ -39,7 +39,6 @@ spec:
   azure:
     application:
       enabled: true
-      allowAllUsers: true
   envFrom:
     - secret: jira-proxy
   observability:

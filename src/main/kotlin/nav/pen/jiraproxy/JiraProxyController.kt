@@ -28,4 +28,17 @@ class JiraProxyController(
         return requests.map { jiraClient.createIssue(it) }
     }
 
+    @GetMapping("/createmeta/{projectKey}/issuetypes")
+    fun getIssueTypes(@PathVariable projectKey: String): Map<String, Any> {
+        return jiraClient.getCreateMetaIssueTypes(projectKey)
+    }
+
+    @GetMapping("/createmeta/{projectKey}/issuetypes/{issueTypeId}")
+    fun getIssueTypeFields(
+        @PathVariable projectKey: String,
+        @PathVariable issueTypeId: String,
+    ): Map<String, Any> {
+        return jiraClient.getCreateMetaFields(projectKey, issueTypeId)
+    }
+
 }

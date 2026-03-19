@@ -27,6 +27,20 @@ class JiraClient(
         jiraRestTemplate.postForObject("/rest/api/2/issue/$issueId/transitions", transition, Void::class.java)
             ?: throw RuntimeException("Failed to transition issue")
     }
+
+    fun getCreateMetaIssueTypes(projectKey: String): Map<String, Any> {
+        return jiraRestTemplate.getForObject(
+            "/rest/api/2/issue/createmeta/$projectKey/issuetypes",
+            Map::class.java,
+        ) as? Map<String, Any> ?: throw RuntimeException("Failed to get issue types for $projectKey")
+    }
+
+    fun getCreateMetaFields(projectKey: String, issueTypeId: String): Map<String, Any> {
+        return jiraRestTemplate.getForObject(
+            "/rest/api/2/issue/createmeta/$projectKey/issuetypes/$issueTypeId",
+            Map::class.java,
+        ) as? Map<String, Any> ?: throw RuntimeException("Failed to get fields for $projectKey/$issueTypeId")
+    }
 }
 
 data class CreateIssueRequest(val fields: Map<String, Any>)
